@@ -18,5 +18,8 @@ class City:
             return True
          return False
 
-    def __print__(self):
-        print(self.id , self.destination)
+    def __str__(self):
+        ret = str(self.id)
+        ret += " "
+        ret += str(self.destination)
+        return ret
