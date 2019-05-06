@@ -64,15 +64,4 @@ class Heap:
         for i in self.A:
             print(str(i))
 
-# if __name__ == '__main__':
-#     arr = [12, 11, 13, 5, 6, 7]
-#     heap = Heap(arr)
-#     heap.print_heap()
-#     print ("-----------------")
-#     heap.insert(8)
-#     heap.print_heap()
-#     print("-----------------")
-#     heap.delete_min()
-#     heap.print_heap()
-
 
