@@ -1,7 +1,10 @@
 class City:
     def __init__(self, id, destination):
-        self.id = id
-        self.destination = destination
+        if (type(id) is not int) or (type(destination) is not int):
+            raise TypeError("id and destination must be from type integer")
+        else:
+            self.id = id
+            self.destination = destination
 
     def __eq__(self, other):
          if self.destination == other.destination:

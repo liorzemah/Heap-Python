@@ -2,51 +2,48 @@
 
 class Heap:
     def __init__(self, A):
-        self.size = len(A)
-        self.A = A
-        self.heap_sort()
+        if (type(A) is not list):
+            raise TypeError("A type is", type(A) ,", A need be from type 'list'")
+        else:
+            self.size = 0
+            self.A = []
+            print ("len(A)",len(A))
+            for i in range(0, len(A), 1):
+                print ("A[",i,"] = ", A[i])
+                self.insert(A[i])
 
     def insert(self, x):
         self.size += 1
         self.A.insert(self.size, x)
-        self.heap_sort()
 
-    # To heapify subtree rooted at index i.
-    # n is size of heap
-    def heapify(self, n, i):
-        largest = i  # Initialize largest as root
-        l = 2 * i + 1  # left = 2*i + 1
-        r = 2 * i + 2  # right = 2*i + 2
+        pos = self.size - 1
+        self.heapify(pos)
+        print(self.A)
 
-        # See if left child of root exists and is
-        # greater than root
-        if l < n and self.A[i] < self.A[l]:
-            largest = l
-
-        # See if right child of root exists and is
-        # greater than root
-        if r < n and self.A[largest] < self.A[r]:
-            largest = r
-
-        if largest != i:
-            self.A[i], self.A[largest] = self.A[largest], self.A[i]  # swap
-            self.heapify(n, largest)
-
-    def heap_sort(self):
-        n = len(self.A)
-
-        for i in range(n, -1, -1):
-            self.heapify(n, i)
-
-        for i in range(n - 1, 0, -1):
-            self.A[i], self.A[0] = self.A[0], self.A[i]  # swap
-            self.heapify(i, 0)
+    def heapify(self, i):
+        while i > 0 and self.A[int(i / 2)] > self.A[i]:
+            self.A[i], self.A[int(i / 2)] = self.A[int(i / 2)], self.A[i]
+            i = int(i / 2)
 
     def delete_min(self):
         if self.size == 0:
             return None
+
+        # pos = 0
+        # while (pos*2+1 < self.size and self.A[pos] < self.A[pos*2+1]) or (pos*2+2 < self.size and self.A[pos] < self.A[pos*2+2]):
+        #     if self.A[pos] < self.A[pos*2+1]:
+        #         self.A[pos], self.A[pos*2+1] = self.A[pos*2+1], self.A[pos]
+        #         pos = pos * 2 + 1
+        #     else:
+        #         self.A[pos], self.A[pos*2+2] = self.A[pos*2+2], self.A[pos]
+        #         pos = pos * 2 + 2
+
         self.size -= 1
-        return self.A.pop(0)
+        min = self.A.pop(0)
+        for i in range(0, len(self.A), 1):
+            self.heapify(i)
+        return min
+
 
     def print_heap(self):
         for i in self.A:
